@@ -1,0 +1,41 @@
+Tema2 APD - Bobelniceanu Darius-Andrei 331CC
+
+Tema implementeaza un sistem distribuit de partajare a fisierelor 
+inspirat din protocolul BitTorrent, folosind MPI pentru comunicarea 
+intre procese si thread-uri pentru operatiile concurente. 
+Sistemul este proiectat să permită transferul eficient al 
+fisierelor intre multiple noduri (peers) intr-o retea, sub 
+coordonarea unui nod central (tracker).
+Fisierele sunt impartite in segmente mai mici, fiecare segment 
+fiind identificat printr-un hash unic. Toata comunicatia legata de 
+continutul fisierelor are loc direct intre peers, tracker-ul 
+intervenind doar pentru a ajuta peers-ii sa se gaseasca unii pe 
+altii in retea.
+
+Functionarea tracker-ului:
+    Functia tracker gestioneaza coordonarea retelei P2P fara a 
+manipula continutul fisierelor. Initializarea se face prin intermediul
+functiei init_tracker(), iar gestionarea cererilor are loc la REQ_FILE 
+informatii despre peers, preceseaza UPDATE-uri pt actualizarea listelor
+de peers .
+
+Functionarea peer-ului:
+    Fiecare peer ruleaza 2 thread-uri paralele:
+        - thread de descarcare (download_thread_func()) 
+        - thread de upload (upload_thread_func())
+
+Sistemul foloseste urm. tipuri de mesaje MPI:
+    - UPLOAD_TAG(0) - cereri de upload intre peers
+    - DOWNLOAD_TAG(1) - descarcari si com cu tracker
+    - INIT_TAG(2) - initializarea retelei
+    - UPDATE_TAG(3) - actualizare catre tracker
+
+Functii auxiliare:
+    - write_file() - scrie fisierul descarcat local
+    - init_client() - initializeaza starea unui peer
+    - find_missing_segment() - identifica segmentele nedescarcate
+    - try_download_segment() - incearca descarcarea unui segment
+    - locate_segment_in_files() - gaseste segmente in fisiere
+    - handle_download_complete() - verifica daca descarcarea 
+    este completa
+
