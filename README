@@ -1,6 +1,5 @@
-Tema2 APD - Bobelniceanu Darius-Andrei 331CC
 
-Tema implementeaza un sistem distribuit de partajare a fisierelor 
+Proiectul implementeaza un sistem distribuit de partajare a fisierelor 
 inspirat din protocolul BitTorrent, folosind MPI pentru comunicarea 
 intre procese si thread-uri pentru operatiile concurente. 
 Sistemul este proiectat să permită transferul eficient al 
